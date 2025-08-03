@@ -107,4 +107,4 @@ The application will be available at `http://localhost:5173`.
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the Creative Commons License.
