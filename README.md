@@ -73,7 +73,7 @@ Follow these instructions to set up and run the project on your local machine fo
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/b4dm4n-cipher-workbench.git
+git clone https://github.com/WilliamMajanja/b4dm4n-cipher-workbench.git
 cd b4dm4n-cipher-workbench
 ```
 
