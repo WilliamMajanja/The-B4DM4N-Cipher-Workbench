@@ -28,8 +28,11 @@ const ApiKeyWarningBanner: React.FC = () => {
     );
 };
 
-/** Tip destination address – replace with your own Minima address. */
-const TIP_ADDRESS = 'MxG08F39U0B3V14N4M1N1MA000000000000';
+/**
+ * Tip destination address – replace with your own Minima address before
+ * deploying to production.
+ */
+const PLACEHOLDER_TIP_ADDRESS = 'MxG08F39U0B3V14N4M1N1MA000000000000';
 
 const App: React.FC = () => {
     const [selectedCipherId, setSelectedCipherId] = useState<string>('k4');
@@ -217,7 +220,7 @@ const App: React.FC = () => {
                                 isUnlocked={isMinimaAiUnlocked}
                                 onPaymentSuccess={handleMinimaPaymentSuccess}
                                 isConnected={!!minimaUser}
-                                tipAddress={TIP_ADDRESS}
+                                tipAddress={PLACEHOLDER_TIP_ADDRESS}
                             />
                         </div>
                     )}
