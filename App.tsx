@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { ciphers, customCipherTemplate } from './data/ciphers.ts';
 import { analyzeTextWithGemini, suggestKeywordWithGemini } from './services/geminiService.ts';
-import { initPiNetwork, authenticatePiUser, isPiBrowser } from './services/piNetworkService.ts';
+import { initMinima, getMinimaStatus, isMinimaNode } from './services/minimaService.ts';
 import { vigenereDecrypt, caesarDecrypt, atbashDecrypt, calculateFrequencies, calculateIoC } from './utils/crypto.ts';
-import { Cipher, AnalysisTab, SolverType, KeywordSuggestion, PiUser } from './types.ts';
+import { Cipher, AnalysisTab, SolverType, KeywordSuggestion, MinimaUser } from './types.ts';
 
 // Layout and UI Components
 import Header from './components/layout/Header.tsx';
@@ -13,7 +13,7 @@ import CipherDetails from './components/CipherDetails.tsx';
 import SolverControls from './components/SolverControls.tsx';
 import AnalysisDashboard from './components/AnalysisDashboard.tsx';
 import KeyLengthAnalysis from './components/KeyLengthAnalysis.tsx';
-import PiPaymentButton from './components/PiPaymentButton.tsx';
+import MinimaPaymentButton from './components/MinimaPaymentButton.tsx';
 
 
 const ApiKeyWarningBanner: React.FC = () => {
@@ -28,6 +28,8 @@ const ApiKeyWarningBanner: React.FC = () => {
     );
 };
 
+/** Tip destination address – replace with your own Minima address. */
+const TIP_ADDRESS = 'MxG08F39U0B3V14N4M1N1MA000000000000';
 
 const App: React.FC = () => {
     const [selectedCipherId, setSelectedCipherId] = useState<string>('k4');
@@ -50,32 +52,39 @@ const App: React.FC = () => {
     const [activeTab, setActiveTab] = useState<AnalysisTab>('frequency');
     const [isApiKeyMissing] = useState(!process.env.API_KEY);
 
-    // --- Pi Network State ---
-    const [piUser, setPiUser] = useState<PiUser | null>(null);
-    const [isPiAuthenticating, setIsPiAuthenticating] = useState<boolean>(false);
-    const [isPiAvailable, setIsPiAvailable] = useState<boolean>(false);
-    const [isPiAiUnlocked, setIsPiAiUnlocked] = useState<boolean>(false);
+    // --- Minima State ---
+    const [minimaUser, setMinimaUser] = useState<MinimaUser | null>(null);
+    const [isMinimaConnecting, setIsMinimaConnecting] = useState<boolean>(false);
+    const [isMinimaAvailable, setIsMinimaAvailable] = useState<boolean>(false);
+    const [isMinimaAiUnlocked, setIsMinimaAiUnlocked] = useState<boolean>(false);
 
-    // Initialise Pi SDK on mount
+    // Initialise MDS on mount
     useEffect(() => {
-        const piAvailable = isPiBrowser();
-        setIsPiAvailable(piAvailable);
-        if (piAvailable) {
-            initPiNetwork(false /* production mode */);
+        const available = isMinimaNode();
+        setIsMinimaAvailable(available);
+        if (available) {
+            initMinima((event) => {
+                if (event === 'inited') {
+                    // MDS is ready – fetch node status
+                    getMinimaStatus().then((user) => {
+                        if (user) setMinimaUser(user);
+                    });
+                }
+            });
         }
     }, []);
 
-    const handlePiLogin = async () => {
-        setIsPiAuthenticating(true);
-        const result = await authenticatePiUser();
-        if (result) {
-            setPiUser(result.user);
+    const handleMinimaConnect = async () => {
+        setIsMinimaConnecting(true);
+        const user = await getMinimaStatus();
+        if (user) {
+            setMinimaUser(user);
         }
-        setIsPiAuthenticating(false);
+        setIsMinimaConnecting(false);
     };
 
-    const handlePiPaymentSuccess = () => {
-        setIsPiAiUnlocked(true);
+    const handleMinimaPaymentSuccess = () => {
+        setIsMinimaAiUnlocked(true);
     };
 
     const activeSolverType = selectedCipherId === 'custom' ? customSolver : selectedCipher.type as SolverType;
@@ -180,10 +189,10 @@ const App: React.FC = () => {
             {isApiKeyMissing && <ApiKeyWarningBanner />}
             <div className="max-w-7xl mx-auto">
                 <Header
-                    piUser={piUser}
-                    isAuthenticating={isPiAuthenticating}
-                    isPiAvailable={isPiAvailable}
-                    onPiLogin={handlePiLogin}
+                    minimaUser={minimaUser}
+                    isConnecting={isMinimaConnecting}
+                    isMinimaAvailable={isMinimaAvailable}
+                    onMinimaConnect={handleMinimaConnect}
                 />
 
                 <main>
@@ -201,13 +210,14 @@ const App: React.FC = () => {
                         isLoadingGemini={isLoadingGemini}
                     />
 
-                    {/* Pi Payment – tip to unlock AI features */}
-                    {isPiAvailable && (
+                    {/* Minima Payment – tip to unlock AI features */}
+                    {isMinimaAvailable && (
                         <div className="flex justify-center mb-4">
-                            <PiPaymentButton
-                                isUnlocked={isPiAiUnlocked}
-                                onPaymentSuccess={handlePiPaymentSuccess}
-                                isAuthenticated={!!piUser}
+                            <MinimaPaymentButton
+                                isUnlocked={isMinimaAiUnlocked}
+                                onPaymentSuccess={handleMinimaPaymentSuccess}
+                                isConnected={!!minimaUser}
+                                tipAddress={TIP_ADDRESS}
                             />
                         </div>
                     )}

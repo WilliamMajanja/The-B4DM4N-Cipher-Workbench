@@ -1,22 +1,22 @@
 
 # The B4DM4N Cipher Workbench
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Gemini](https://img.shields.io/badge/Gemini_API-4285F4?style=for-the-badge&logo=google&logoColor=white) ![Pi Network](https://img.shields.io/badge/Pi_Network-6D3FAC?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHRleHQgeD0iNCIgeT0iMTgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4Ij7PgDwvdGV4dD48L3N2Zz4=&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Gemini](https://img.shields.io/badge/Gemini_API-4285F4?style=for-the-badge&logo=google&logoColor=white) ![Minima](https://img.shields.io/badge/Minima-00C6A7?style=for-the-badge&logoColor=white)
 
-A **Pi Network DApp** — an advanced, all-in-one interactive workbench for analyzing historical ciphers and esoteric texts. This tool combines classical cryptanalysis techniques with powerful AI insights from the Google Gemini API and integrates with the **Pi Network** blockchain for decentralized identity and micro-tipping.
+A **Minima MiniDApp** — an advanced, all-in-one interactive workbench for analyzing historical ciphers and esoteric texts. This tool combines classical cryptanalysis techniques with powerful AI insights from the Google Gemini API and integrates with the **Minima** blockchain for decentralized identity and micro-tipping.
 
 ![The B4DM4N Cipher Workbench Screenshot](https://storage.googleapis.com/genai-assets/workbench.png)
 
 ---
 
-## 🟣 Pi Network Integration
+## ⬡ Minima PiNet OS Integration
 
-This application is a **decentralized application (DApp)** built for the Pi Network ecosystem:
+This application is a **MiniDApp** built for the Minima ecosystem:
 
--   **π Wallet Authentication**: Connect your Pi wallet via the Pi Browser to identify yourself on the workbench.
--   **π Micro-Tipping**: Tip a small amount of Pi (0.01 π) to unlock premium AI analysis features within your session.
--   **Pi Browser Native**: Designed to run inside the [Pi Browser](https://minepi.com/) — the Pi SDK is loaded automatically.
--   **Works Everywhere**: The workbench functions fully outside the Pi Browser; Pi-specific features (auth & payments) are simply hidden when the SDK is unavailable.
+-   **⬡ Node Identity**: Connect to your Minima node to identify yourself on the workbench via your public key.
+-   **⬡ Micro-Tipping**: Send a small amount of Minima (0.01) to unlock premium AI analysis features within your session.
+-   **Minima Node Native**: Designed to run inside a [Minima](https://minima.global/) node — the MDS API (`/mds.js`) is served automatically.
+-   **Works Everywhere**: The workbench functions fully outside a Minima node; Minima-specific features (identity & payments) are simply hidden when MDS is unavailable.
 
 ---
 
@@ -49,7 +49,7 @@ This application is a **decentralized application (DApp)** built for the Pi Netw
 -   **Styling**: Tailwind CSS
 -   **AI**: Google Gemini API
 -   **Charting**: Recharts
--   **Blockchain**: Pi Network SDK
+-   **Blockchain**: Minima MDS
 
 ## 📂 Project Structure
 
@@ -57,24 +57,24 @@ The application is built on a clean, component-based architecture for excellent 
 
 ```
 ├── components/
-│   ├── layout/          # Page structure (Header with Pi auth)
+│   ├── layout/          # Page structure (Header with Minima status)
 │   ├── ui/              # Reusable UI elements (Buttons, Spinners)
 │   ├── AnalysisDashboard.tsx
 │   ├── CipherDetails.tsx
 │   ├── CipherSelector.tsx
 │   ├── KeyLengthAnalysis.tsx
-│   ├── PiAuthButton.tsx     # Pi Network wallet connection button
-│   ├── PiPaymentButton.tsx  # Pi micro-tip payment button
+│   ├── MinimaStatusButton.tsx     # Minima node connection button
+│   ├── MinimaPaymentButton.tsx  # Minima micro-tip payment button
 │   └── ... (other feature components)
 ├── data/                # Static data (cipher library)
 ├── services/
 │   ├── geminiService.ts     # Google Gemini API integration
-│   └── piNetworkService.ts  # Pi Network SDK service (auth & payments)
+│   └── minimaService.ts  # Minima MDS service (identity & payments)
 ├── utils/               # Core logic (crypto.ts)
-├── types.ts             # Centralized TypeScript types (incl. Pi types)
+├── types.ts             # Centralized TypeScript types (incl. Minima types)
 ├── App.tsx              # Main application component
 ├── index.tsx            # Application entry point
-└── metadata.json        # Pi Network DApp metadata
+└── metadata.json        # Minima MiniDApp metadata
 ```
 
 ## 💻 Getting Started: Running Locally
@@ -85,7 +85,7 @@ Follow these instructions to set up and run the project on your local machine fo
 
 -   [Node.js](https://nodejs.org/) (v18 or higher recommended)
 -   [npm](https://www.npmjs.com/) (comes with Node.js)
--   [Pi Browser](https://minepi.com/) (for testing Pi wallet features)
+-   [Minima Node](https://minima.global/) (for testing Minima MiniDApp features)
 
 ### 1. Clone the Repository
 
@@ -122,15 +122,15 @@ npm run dev
 
 The application will be available at `http://localhost:5173`.
 
-### 5. Testing Pi Network Features
+### 5. Testing Minima MiniDApp Features
 
-To test Pi wallet authentication and payments:
+To test Minima node connection and payments:
 
-1.  Deploy the app to a publicly accessible URL (or use a tunnel like ngrok).
-2.  Register your app on the [Pi Developer Portal](https://develop.pi).
-3.  Open the app URL in the **Pi Browser** — the SDK will be injected automatically.
-4.  Click **"π Connect Pi Wallet"** in the header to authenticate.
-5.  Use the **"π Tip 0.01 Pi for AI"** button to test the payment flow.
+1.  Install and run a [Minima node](https://docs.minima.global/docs/runanode/get-started).
+2.  Package the app as a MiniDApp (zip the build output) and install it on your node.
+3.  Open the MiniDApp from the Minima hub — the MDS API (`/mds.js`) is served automatically.
+4.  Click **"⬡ Connect Minima"** in the header to view your node identity.
+5.  Use the **"⬡ Tip 0.01 Minima for AI"** button to test the payment flow.
 
 ## 📄 License
 
