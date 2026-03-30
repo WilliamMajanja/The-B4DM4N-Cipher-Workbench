@@ -6,7 +6,7 @@
  * and all operations gracefully degrade (auth returns null, payments are
  * rejected with a clear error message).
  *
- * SDK reference: https://github.com/nicholasgasior/pi-sdk-js
+ * Official docs: https://pi-apps.github.io/pi-platform-docs/
  */
 
 import { PiUser, PiPaymentCallbacks } from '../types.ts';

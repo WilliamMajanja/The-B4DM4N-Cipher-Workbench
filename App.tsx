@@ -61,7 +61,7 @@ const App: React.FC = () => {
         const piAvailable = isPiBrowser();
         setIsPiAvailable(piAvailable);
         if (piAvailable) {
-            initPiNetwork(false);
+            initPiNetwork(false /* production mode */);
         }
     }, []);
 

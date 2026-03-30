@@ -11,8 +11,8 @@ interface PiPaymentButtonProps {
     isAuthenticated: boolean;
 }
 
-const AI_TIP_AMOUNT = 0.01; // Pi
-const AI_TIP_MEMO = 'B4DM4N Cipher Workbench – AI Analysis Tip';
+const AI_UNLOCK_TIP_AMOUNT = 0.01; // Pi
+const AI_UNLOCK_TIP_MEMO = 'B4DM4N Cipher Workbench – AI Analysis Tip';
 
 const PiPaymentButton: React.FC<PiPaymentButtonProps> = ({
     isUnlocked,
@@ -26,7 +26,7 @@ const PiPaymentButton: React.FC<PiPaymentButtonProps> = ({
         setIsProcessing(true);
         setError(null);
         try {
-            await createPiPayment(AI_TIP_AMOUNT, AI_TIP_MEMO, {
+            await createPiPayment(AI_UNLOCK_TIP_AMOUNT, AI_UNLOCK_TIP_MEMO, {
                 feature: 'ai_analysis',
             });
             onPaymentSuccess();
@@ -58,7 +58,7 @@ const PiPaymentButton: React.FC<PiPaymentButtonProps> = ({
                 className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg px-3 py-1.5 transition-colors duration-200 text-sm"
             >
                 {isProcessing ? <LoadingSpinner /> : null}
-                {isProcessing ? 'Processing…' : `π Tip ${AI_TIP_AMOUNT} Pi for AI`}
+                {isProcessing ? 'Processing…' : `π Tip ${AI_UNLOCK_TIP_AMOUNT} Pi for AI`}
             </button>
             {error && <span className="text-xs text-red-400">{error}</span>}
         </div>
