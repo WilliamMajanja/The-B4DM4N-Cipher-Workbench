@@ -1,6 +1,11 @@
 {
   "name": "The B4DM4N Cipher Workbench",
-  "description": "An advanced interactive workbench for analyzing texts. Features classical cipher solvers, advanced cryptanalysis (Kasiski, IoC), a Hieroglyphics Lab, multi-schema Gematria, a persistent user workspace, and AI-powered insights from Gemini.",
-  "requestFramePermissions": [],
+  "description": "A Pi Network DApp — advanced interactive workbench for analyzing texts. Features classical cipher solvers, advanced cryptanalysis (Kasiski, IoC), a Hieroglyphics Lab, multi-schema Gematria, a persistent user workspace, AI-powered insights from Gemini, and Pi Network wallet integration for tipping.",
+  "network": "Pi Network",
+  "version": "2.0.0",
+  "requestFramePermissions": [
+    "username",
+    "payments"
+  ],
   "prompt": ""
 }

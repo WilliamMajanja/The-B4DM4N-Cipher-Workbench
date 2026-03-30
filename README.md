@@ -1,11 +1,22 @@
 
 # The B4DM4N Cipher Workbench
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Gemini](https://img.shields.io/badge/Gemini_API-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Gemini](https://img.shields.io/badge/Gemini_API-4285F4?style=for-the-badge&logo=google&logoColor=white) ![Pi Network](https://img.shields.io/badge/Pi_Network-6D3FAC?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHRleHQgeD0iNCIgeT0iMTgiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4Ij7PgDwvdGV4dD48L3N2Zz4=&logoColor=white)
 
-An advanced, all-in-one interactive workbench for analyzing historical ciphers and esoteric texts. This tool combines classical cryptanalysis techniques with powerful AI insights from the Google Gemini API, creating a comprehensive environment for enthusiasts, researchers, and puzzle solvers.
+A **Pi Network DApp** — an advanced, all-in-one interactive workbench for analyzing historical ciphers and esoteric texts. This tool combines classical cryptanalysis techniques with powerful AI insights from the Google Gemini API and integrates with the **Pi Network** blockchain for decentralized identity and micro-tipping.
 
 ![The B4DM4N Cipher Workbench Screenshot](https://storage.googleapis.com/genai-assets/workbench.png)
+
+---
+
+## 🟣 Pi Network Integration
+
+This application is a **decentralized application (DApp)** built for the Pi Network ecosystem:
+
+-   **π Wallet Authentication**: Connect your Pi wallet via the Pi Browser to identify yourself on the workbench.
+-   **π Micro-Tipping**: Tip a small amount of Pi (0.01 π) to unlock premium AI analysis features within your session.
+-   **Pi Browser Native**: Designed to run inside the [Pi Browser](https://minepi.com/) — the Pi SDK is loaded automatically.
+-   **Works Everywhere**: The workbench functions fully outside the Pi Browser; Pi-specific features (auth & payments) are simply hidden when the SDK is unavailable.
 
 ---
 
@@ -38,27 +49,32 @@ An advanced, all-in-one interactive workbench for analyzing historical ciphers a
 -   **Styling**: Tailwind CSS
 -   **AI**: Google Gemini API
 -   **Charting**: Recharts
+-   **Blockchain**: Pi Network SDK
 
 ## 📂 Project Structure
 
 The application is built on a clean, component-based architecture for excellent maintainability and scalability.
 
 ```
-src/
 ├── components/
-│   ├── layout/       # Page structure (Header)
-│   ├── ui/           # Reusable UI elements (Buttons, Spinners)
+│   ├── layout/          # Page structure (Header with Pi auth)
+│   ├── ui/              # Reusable UI elements (Buttons, Spinners)
 │   ├── AnalysisDashboard.tsx
 │   ├── CipherDetails.tsx
 │   ├── CipherSelector.tsx
 │   ├── KeyLengthAnalysis.tsx
+│   ├── PiAuthButton.tsx     # Pi Network wallet connection button
+│   ├── PiPaymentButton.tsx  # Pi micro-tip payment button
 │   └── ... (other feature components)
-├── data/             # Static data (cipher library)
-├── services/         # External API interactions (geminiService.ts)
-├── utils/            # Core logic (crypto.ts)
-├── types.ts          # Centralized TypeScript types
-├── App.tsx           # Main application component
-└── index.tsx         # Application entry point
+├── data/                # Static data (cipher library)
+├── services/
+│   ├── geminiService.ts     # Google Gemini API integration
+│   └── piNetworkService.ts  # Pi Network SDK service (auth & payments)
+├── utils/               # Core logic (crypto.ts)
+├── types.ts             # Centralized TypeScript types (incl. Pi types)
+├── App.tsx              # Main application component
+├── index.tsx            # Application entry point
+└── metadata.json        # Pi Network DApp metadata
 ```
 
 ## 💻 Getting Started: Running Locally
@@ -69,6 +85,7 @@ Follow these instructions to set up and run the project on your local machine fo
 
 -   [Node.js](https://nodejs.org/) (v18 or higher recommended)
 -   [npm](https://www.npmjs.com/) (comes with Node.js)
+-   [Pi Browser](https://minepi.com/) (for testing Pi wallet features)
 
 ### 1. Clone the Repository
 
@@ -104,6 +121,16 @@ npm run dev
 ```
 
 The application will be available at `http://localhost:5173`.
+
+### 5. Testing Pi Network Features
+
+To test Pi wallet authentication and payments:
+
+1.  Deploy the app to a publicly accessible URL (or use a tunnel like ngrok).
+2.  Register your app on the [Pi Developer Portal](https://develop.pi).
+3.  Open the app URL in the **Pi Browser** — the SDK will be injected automatically.
+4.  Click **"π Connect Pi Wallet"** in the header to authenticate.
+5.  Use the **"π Tip 0.01 Pi for AI"** button to test the payment flow.
 
 ## 📄 License
 

@@ -26,3 +26,47 @@ export interface FrequencyData {
 }
 
 export type GematriaSchema = 'pythagorean' | 'chaldean' | 'hebrew' | 'latin_roman' | 'greek' | 'sanskrit_katapayadi';
+
+// --- Pi Network DApp Types ---
+
+export interface PiUser {
+    uid: string;
+    username: string;
+}
+
+export interface PiAuthResult {
+    accessToken: string;
+    user: PiUser;
+}
+
+export interface PiPaymentDTO {
+    identifier: string;
+    user_uid: string;
+    amount: number;
+    memo: string;
+    metadata: Record<string, unknown>;
+    from_address: string;
+    to_address: string;
+    direction: 'user_to_app' | 'app_to_user';
+    status: {
+        developer_approved: boolean;
+        transaction_verified: boolean;
+        developer_completed: boolean;
+        cancelled: boolean;
+        user_cancelled: boolean;
+    };
+    transaction: {
+        txid: string;
+        verified: boolean;
+        _link: string;
+    } | null;
+    created_at: string;
+    network: 'Pi Network';
+}
+
+export type PiPaymentCallbacks = {
+    onReadyForServerApproval: (paymentId: string) => void;
+    onReadyForServerCompletion: (paymentId: string, txid: string) => void;
+    onCancel: (paymentId: string) => void;
+    onError: (error: Error, payment?: PiPaymentDTO) => void;
+};

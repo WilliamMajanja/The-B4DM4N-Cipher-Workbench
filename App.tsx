@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { ciphers, customCipherTemplate } from './data/ciphers.ts';
 import { analyzeTextWithGemini, suggestKeywordWithGemini } from './services/geminiService.ts';
+import { initPiNetwork, authenticatePiUser, isPiBrowser } from './services/piNetworkService.ts';
 import { vigenereDecrypt, caesarDecrypt, atbashDecrypt, calculateFrequencies, calculateIoC } from './utils/crypto.ts';
-import { Cipher, AnalysisTab, SolverType, KeywordSuggestion } from './types.ts';
+import { Cipher, AnalysisTab, SolverType, KeywordSuggestion, PiUser } from './types.ts';
 
 // Layout and UI Components
 import Header from './components/layout/Header.tsx';
@@ -12,6 +13,7 @@ import CipherDetails from './components/CipherDetails.tsx';
 import SolverControls from './components/SolverControls.tsx';
 import AnalysisDashboard from './components/AnalysisDashboard.tsx';
 import KeyLengthAnalysis from './components/KeyLengthAnalysis.tsx';
+import PiPaymentButton from './components/PiPaymentButton.tsx';
 
 
 const ApiKeyWarningBanner: React.FC = () => {
@@ -47,6 +49,34 @@ const App: React.FC = () => {
     
     const [activeTab, setActiveTab] = useState<AnalysisTab>('frequency');
     const [isApiKeyMissing] = useState(!process.env.API_KEY);
+
+    // --- Pi Network State ---
+    const [piUser, setPiUser] = useState<PiUser | null>(null);
+    const [isPiAuthenticating, setIsPiAuthenticating] = useState<boolean>(false);
+    const [isPiAvailable, setIsPiAvailable] = useState<boolean>(false);
+    const [isPiAiUnlocked, setIsPiAiUnlocked] = useState<boolean>(false);
+
+    // Initialise Pi SDK on mount
+    useEffect(() => {
+        const piAvailable = isPiBrowser();
+        setIsPiAvailable(piAvailable);
+        if (piAvailable) {
+            initPiNetwork(false);
+        }
+    }, []);
+
+    const handlePiLogin = async () => {
+        setIsPiAuthenticating(true);
+        const result = await authenticatePiUser();
+        if (result) {
+            setPiUser(result.user);
+        }
+        setIsPiAuthenticating(false);
+    };
+
+    const handlePiPaymentSuccess = () => {
+        setIsPiAiUnlocked(true);
+    };
 
     const activeSolverType = selectedCipherId === 'custom' ? customSolver : selectedCipher.type as SolverType;
 
@@ -149,7 +179,12 @@ const App: React.FC = () => {
         <div className="bg-gray-900 text-gray-200 min-h-screen font-sans p-4 sm:p-6 md:p-8">
             {isApiKeyMissing && <ApiKeyWarningBanner />}
             <div className="max-w-7xl mx-auto">
-                <Header />
+                <Header
+                    piUser={piUser}
+                    isAuthenticating={isPiAuthenticating}
+                    isPiAvailable={isPiAvailable}
+                    onPiLogin={handlePiLogin}
+                />
 
                 <main>
                     <CipherSelector
@@ -165,6 +200,17 @@ const App: React.FC = () => {
                         handleMainAnalysisClick={handleMainAnalysisClick}
                         isLoadingGemini={isLoadingGemini}
                     />
+
+                    {/* Pi Payment – tip to unlock AI features */}
+                    {isPiAvailable && (
+                        <div className="flex justify-center mb-4">
+                            <PiPaymentButton
+                                isUnlocked={isPiAiUnlocked}
+                                onPaymentSuccess={handlePiPaymentSuccess}
+                                isAuthenticated={!!piUser}
+                            />
+                        </div>
+                    )}
                     
                     {showSolverControls && (
                         <SolverControls
