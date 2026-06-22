@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}The B4DM4N Cipher Workbench{% endblock %}
+
+{% block header %}
+    {% include "components/header.html" %}
+{% endblock %}
+
+{% block content %}
+    {% set selected = selected_cipher_id | default('k4') %}
+
+    {% include "components/cipher_selector.html" %}
+    {% include "components/cipher_details.html" %}
+    {% include "components/solver_controls.html" %}
+    {% include "components/key_length_analysis.html" %}
+    {% include "components/analysis_dashboard.html" %}
+
+    <script>
+        window.__CIPHERS__ = {{ ciphers | tojson }};
+        window.__SELECTED_CIPHER_ID__ = "{{ selected_cipher_id | default('k4') }}";
+    </script>
+{% endblock %}

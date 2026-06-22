@@ -1,0 +1,39 @@
+<div class="bg-gray-800 shadow-xl rounded-lg p-6 mb-8 ring-1 ring-white/10">
+    <h2 class="text-xl font-semibold text-green-300 mb-2 font-mono">2. Analysis Subject</h2>
+    <p class="text-sm text-gray-400 mb-4">{{ selected_cipher.description }}</p>
+    {% if selected_cipher.notes %}
+    <p class="text-xs text-amber-400 mb-4 p-2 bg-amber-900/20 rounded-md">Note: {{ selected_cipher.notes }}</p>
+    {% endif %}
+
+    <h3 class="text-lg text-gray-400 font-mono mb-2">Source Text:</h3>
+    <textarea
+        id="ciphertext-input"
+        placeholder="Paste your ciphertext here"
+        aria-label="Ciphertext input"
+        class="w-full h-40 bg-gray-900/50 border border-gray-600 text-gray-300 font-mono text-base tracking-wider rounded-md p-3 focus:ring-2 focus:ring-green-500 outline-none transition"
+    >{{ selected_cipher.ciphertext }}</textarea>
+
+    {% if selected_cipher.plaintext %}
+    <div class="mt-4">
+        <h3 class="text-lg text-cyan-400 font-mono mb-2">Solved Plaintext:</h3>
+        <p class="text-cyan-200 font-mono text-base tracking-wider break-all bg-cyan-900/20 p-3 rounded-md">{{ selected_cipher.plaintext }}</p>
+    </div>
+    {% endif %}
+
+    <div class="mt-6 text-center">
+        <button
+            id="analyze-btn"
+            onclick="handleMainAnalysisClick()"
+            class="w-full md:w-1/2 flex items-center justify-center bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200 text-lg"
+        >
+            <span id="analyze-btn-text">Analyze with AI (llama3)</span>
+            <span id="analyze-spinner" class="hidden">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Analyzing...
+            </span>
+        </button>
+    </div>
+</div>

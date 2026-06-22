@@ -1,0 +1,8 @@
+{
+  "name": "The B4DM4N Cipher Workbench",
+  "description": "A Minima MiniDApp — advanced interactive workbench for analyzing texts. Features classical cipher solvers, advanced cryptanalysis (Kasiski, IoC), a Hieroglyphics Lab, multi-schema Gematria, a persistent user workspace, AI-powered insights from Gemini, and Minima blockchain integration for tipping.",
+  "network": "Minima",
+  "version": "2.0.0",
+  "browser": "internal",
+  "prompt": ""
+}

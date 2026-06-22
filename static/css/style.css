@@ -1,0 +1,53 @@
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+::-webkit-scrollbar-thumb {
+  background: #718096;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #718096 #2d3748;
+}
+
+/* Utility classes */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+.btn-base {
+  @apply px-4 py-2 rounded font-medium transition-all;
+}
+
+.btn-primary {
+  @apply bg-indigo-600 hover:bg-indigo-700 text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 hover:bg-gray-600 text-gray-200;
+}
+
+.tab-active {
+  @apply text-indigo-400 border-indigo-400 border-b-2;
+}
+
+.tab-inactive {
+  @apply text-gray-400 hover:text-gray-300 border-b-2 border-transparent;
+}

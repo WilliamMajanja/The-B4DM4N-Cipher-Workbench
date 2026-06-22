@@ -1,0 +1,47 @@
+<div id="key-length-analysis" class="bg-gray-800 shadow-xl rounded-lg p-6 mb-8 ring-1 ring-white/10 hidden">
+    <h2 class="text-xl font-semibold text-green-300 mb-4 font-mono">4. Key Length Analysis</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-gray-800/50 p-4 rounded-lg shadow-inner ring-1 ring-white/10 space-y-4">
+            <div>
+                <h3 class="text-lg font-semibold text-green-300 mb-3 text-center">Kasiski Examination</h3>
+                <p class="text-xs text-gray-400 mb-4 text-center">Finds repeated text sequences to guess the key length. The most common factors of the distances between repeats are likely candidates.</p>
+                <h4 class="font-semibold text-gray-300 mb-2">Most Probable Key Lengths:</h4>
+                <div class="overflow-auto max-h-40 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800 rounded-md">
+                    <table class="w-full text-sm text-left text-gray-400">
+                        <thead class="text-xs text-gray-300 uppercase bg-gray-700/50 sticky top-0">
+                            <tr><th class="px-4 py-2">Key Length</th><th class="px-4 py-2">Factor Count</th></tr>
+                        </thead>
+                        <tbody id="kasiski-factors">
+                            <tr><td colspan="2" class="text-center italic text-gray-500 py-4">Not enough data for Kasiski test.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-300 mb-2">Sequence Details Report:</h4>
+                <div class="overflow-auto max-h-48 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800 rounded-md">
+                    <table class="w-full text-sm text-left text-gray-400">
+                        <thead class="text-xs text-gray-300 uppercase bg-gray-700/50 sticky top-0">
+                            <tr>
+                                <th class="px-4 py-2">Sequence</th>
+                                <th class="px-4 py-2">Positions</th>
+                                <th class="px-4 py-2">Distances</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kasiski-sequences">
+                            <tr><td colspan="3" class="text-center italic text-gray-500 py-4">No repeated sequences found.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-800/50 p-4 rounded-lg shadow-inner ring-1 ring-white/10 h-[34rem] flex flex-col">
+            <h3 class="text-lg font-semibold text-green-300 mb-3 text-center">IoC by Key Length</h3>
+            <p class="text-xs text-gray-400 mb-4 text-center">High IoC (like English ≈ 0.067) suggests a correct key length.</p>
+            <div class="flex-grow">
+                <canvas id="ioc-chart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

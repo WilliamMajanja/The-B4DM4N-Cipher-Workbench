@@ -1,0 +1,35 @@
+<div class="bg-gray-800 shadow-xl rounded-lg p-6 mb-8 ring-1 ring-white/10">
+    <label for="cipher-select" class="block text-xl font-semibold text-green-300 mb-3 font-mono">
+        1. Select Text / Cipher
+    </label>
+    <select
+        id="cipher-select"
+        onchange="selectCipher(this.value)"
+        aria-label="Select a cipher to analyze"
+        class="w-full bg-gray-900 border border-gray-600 text-green-300 text-lg font-mono rounded-md p-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+    >
+        <optgroup label="Famous Unsolved Ciphers" class="font-sans text-gray-400">
+            {% for c in ciphers if c.id == 'k4' %}
+            <option value="{{ c.id }}" class="font-mono text-green-300" {% if c.id == selected %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="Classical Ciphers" class="font-sans text-gray-400">
+            {% for c in ciphers if c.id in ['k1', 'k2', 'vicksburg', 'bible_jeremiah'] %}
+            <option value="{{ c.id }}" class="font-mono text-green-300" {% if c.id == selected %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="Esoteric &amp; Philosophical Texts" class="font-sans text-gray-400">
+            {% for c in ciphers if c.type == 'ESOTERIC' %}
+            <option value="{{ c.id }}" class="font-mono text-green-300" {% if c.id == selected %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="Puzzles &amp; Challenges" class="font-sans text-gray-400">
+            {% for c in ciphers if c.type in ['PUZZLE', 'TRANSPOSITION'] %}
+            <option value="{{ c.id }}" class="font-mono text-green-300" {% if c.id == selected %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="Custom" class="font-sans text-gray-400">
+            <option value="custom" class="font-mono text-green-300" {% if selected == 'custom' %}selected{% endif %}>Custom Cipher...</option>
+        </optgroup>
+    </select>
+</div>
